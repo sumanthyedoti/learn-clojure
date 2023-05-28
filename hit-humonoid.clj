@@ -34,8 +34,8 @@
         target (rand (reduce
                       (fn [total-size part] (+ total-size (:size part)))
                       0 sym-body-parts))]
-    (loop [accumulated-size 0
-           [part & remaining] sym-body-parts]
+    (loop [[part & remaining] sym-body-parts
+           accumulated-size (:size part)]
       (if
           (> accumulated-size target) part
           (recur (+ accumulated-size (:size part)) remaining)))))
