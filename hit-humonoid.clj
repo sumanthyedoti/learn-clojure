@@ -1,8 +1,3 @@
-((defn -main
-   ""
-   []
-   ))
-
 (def asym-body-parts [{:name "head" :size 3}
                       {:name "eye" :size 1 :sym true}
                       {:name "ear" :size 1 :sym true}
@@ -44,3 +39,5 @@
       (if
           (> accumulated-size target) part
           (recur (+ accumulated-size (:size part)) remaining)))))
+
+(print (hit-humanoid asym-body-parts))
