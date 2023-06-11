@@ -5,3 +5,4 @@
   "Entry point of the program"
   [& args]
   (println "Hello, World!"))
+(def x 10)
