@@ -30,4 +30,17 @@
 (defn glitter-filter [min-glitter vampires]
   (filter #(>= (:glitter-index %) min-glitter) vampires))
 
-(glitter-filter 3 (mapify (parse (slurp filename))))
+(def suspects (mapify (parse (slurp filename))))
+
+(defn validate [suspects keys] (reduce #(and %1 (%2 suspects)) true keys))
+
+(defn add-suspect [suspect]
+  (if (validate suspect row-keys) (conj suspects suspect) suspects))
+
+(defn cvs-stringify-suspects [suspects]
+  (map (fn [suspect]
+         (let [unmapped-row (reduce (fn [vals [_ v]] (conj vals v)) [] suspect)]
+           (clojure.string/join #"," unmapped-row)))
+       suspects))
+
+(glitter-filter 3 suspects)
