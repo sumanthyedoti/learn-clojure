@@ -215,13 +215,18 @@
   []
   (println "How many rows? [5]")
   (let [rows (Integer. (get-input 5))
-        board (new-board rows)]
-    (prompt-empty-peg board)))
+        board (new-board rows)
+        max-board-position (- alpha-end alpha-start)]
+    (if (> (row-tri rows) max-board-position)
+      (do
+        (println "Board size is too big. Max size is " (dec (row-num max-board-position)))
+        (prompt-rows))
+     (prompt-empty-peg board))))
 
 (defn game-over
   [board]
   (let [remaining-pegs (count (filter :pegged (vals board)))]
-    (println "\nGame over! You had " remaining-pegs " left:")
+    (println "\nGame over! You had " remaining-pegs " pegs left:")
     (print-board board))
   (println "\nPlay again? y/n [y]")
   (let [input (get-input "y")]
